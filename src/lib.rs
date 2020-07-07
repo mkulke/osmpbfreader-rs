@@ -97,6 +97,7 @@ extern crate byteorder;
 extern crate flat_map;
 extern crate flate2;
 extern crate protobuf;
+extern crate smol_str;
 #[macro_use]
 extern crate rental;
 extern crate par_map;

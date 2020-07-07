@@ -9,6 +9,7 @@
 //!
 //! There are 3 types of objects: nodes, ways and relations.
 
+use smol_str::SmolStr;
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 
@@ -17,7 +18,7 @@ use std::ops::{Deref, DerefMut};
 /// tags](http://wiki.openstreetmap.org/wiki/Tags) for more
 /// information.
 #[derive(Debug, Default, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
-pub struct Tags(::flat_map::FlatMap<String, String>);
+pub struct Tags(::flat_map::FlatMap<SmolStr, SmolStr>);
 
 impl Tags {
     /// Creates a new, empty `Tags` object.
@@ -31,7 +32,7 @@ impl Tags {
 }
 
 impl Deref for Tags {
-    type Target = ::flat_map::FlatMap<String, String>;
+    type Target = ::flat_map::FlatMap<SmolStr, SmolStr>;
 
     fn deref(&self) -> &Self::Target {
         &self.0
@@ -44,8 +45,8 @@ impl DerefMut for Tags {
     }
 }
 
-impl FromIterator<(String, String)> for Tags {
-    fn from_iter<T: IntoIterator<Item = (String, String)>>(iter: T) -> Self {
+impl FromIterator<(SmolStr, SmolStr)> for Tags {
+    fn from_iter<T: IntoIterator<Item = (SmolStr, SmolStr)>>(iter: T) -> Self {
         Tags(iter.into_iter().collect())
     }
 }
@@ -238,7 +239,7 @@ pub struct Ref {
     /// Id of the member.
     pub member: OsmId,
     /// Role of the member.
-    pub role: String,
+    pub role: SmolStr,
 }
 
 /// An OpenStreetMap relation.  See the [OpenStreetMap wiki page about

@@ -13,6 +13,8 @@ use std::iter::Chain;
 use std::iter::Map;
 use std::slice;
 
+use smol_str::SmolStr;
+
 pub_iterator_type! {
     #[doc="Iterator on the `OsmObj` of a `PrimitiveGroup`."]
     OsmObjs['a] = Chain<Chain<Map<Nodes<'a>, fn(Node) -> OsmObj>,
@@ -205,8 +207,8 @@ impl<'a> Iterator for Relations<'a> {
     }
 }
 
-fn make_string(k: usize, block: &osmformat::PrimitiveBlock) -> String {
-    String::from_utf8_lossy(&*block.get_stringtable().get_s()[k]).into_owned()
+fn make_string(k: usize, block: &osmformat::PrimitiveBlock) -> SmolStr {
+    String::from_utf8_lossy(&*block.get_stringtable().get_s()[k]).into()
 }
 
 fn make_lat(c: i64, b: &osmformat::PrimitiveBlock) -> i32 {
